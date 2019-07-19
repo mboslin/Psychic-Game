@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Psychic Game</title>
+</head>
+
+<body>
+
+	<div id="game">
+
+		<h1>The Psychic Game</h1>
+		<h4>Guess what letter I'm thinking of?</h4>
+		<h4>Wins: 0</h4>
+		<h4>Losses: 0</h4>
+		<h4>Guesses Left: 9</h4>
+		<h4>Your guesses so far: </h4>
+
+    </div>
+    
+<script>
+    var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    var wins = 0;
+    var losses = 0;
+    var guessesLeft = 9;
+    var guessesSoFar = [];
+    var userGuess = null;
+    
+    var letterToBeGuessed = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+    
+    document.onkeyup = function(event) {
+    
+        var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+    
+        if (guessesSoFar.indexOf(userGuess) < 0 && computerOptions.indexOf(userGuess) >= 0) {
+            guessesSoFar[guessesSoFar.length]=userGuess;
+            guessesLeft--;
+        }
+    
+        if (letterToBeGuessed == userGuess) {
+            wins++;
+            alert(" You ARE Psychic -- The Force is Strong!!")
+            guessesLeft = 9;
+            guessesSoFar = [];
+            letterToBeGuessed = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+        }
+    
+        if (guessesLeft == 0) {
+            losses++;
+            alert(" NO Jedi Powers Found -- Please Try Again!!")
+            guessesLeft = 9;
+            guessesSoFar = [];
+            letterToBeGuessed = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+        }
+    
+        var text = "<h1>The Psychic Game</h1>" + "<h4>Guess what letter I'm thinking of?</h4>" + "<h4>Wins: " + wins + "</h4>" + "<h4>Losses: " + losses + "</h4>" + "<h4>Guesses Left: " + guessesLeft + "</h4>" + "<h4>Your guesses so far: " + guessesSoFar + "</h4>";
+
+        document.querySelector("#game").innerHTML = text;
+    };
+    </script>    
+</body>
+</html>
